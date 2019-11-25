@@ -1,9 +1,11 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
 
 public class Utils {
+
 
     // Computes the current battery voltage
     static double getBatteryVoltage(HardwareMap hardwareMap) {
@@ -16,4 +18,11 @@ public class Utils {
         }
         return result;
     }
+
+    public void moveToEncoderPosition(DcMotor motor, int position) {
+        motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motor.setTargetPosition(position);
+        motor.setPower(1);
+    }
+
 }
