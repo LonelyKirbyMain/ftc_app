@@ -9,7 +9,7 @@ public class Test extends AutonomousFirst {
     public void runOpMode() throws InterruptedException {
         runSetup();
         turnDegrees(1, 360);
-        driveEncoder(1, 10, 10);
+        driveCm(1, 10, 10);
 
     }
 }

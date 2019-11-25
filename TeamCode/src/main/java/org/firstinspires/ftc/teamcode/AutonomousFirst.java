@@ -25,17 +25,20 @@ public class AutonomousFirst extends LinearOpMode {
     private double clawPosition;
     private Servo claw = null;
 
-    private static final double ROBOT_WIDTH = 32.8; //cm. From wheel to wheel. THIS VALUE IS NOT CORRECT TODO: get a more accurate #
-    private static final double WHEEL_DIAMETER = 10.16; //cm.
-    private static final double COUNTS_PER_CM = 1440 / (WHEEL_DIAMETER * Math.PI);
+    private static final double ROBOT_WIDTH = 41; //cm. From wheel to wheel. THIS VALUE IS NOT CORRECT TODO: get a more accurate #
+    //private static final double WHEEL_DIAMETER = 10.16; //cm.
+    private static final double COUNTS_PER_CM = 1000 / 28.25; //cm.
 
     @Override
     public void runOpMode() throws InterruptedException {
         runSetup();
 
-
         //begin of actual code
-        driveEncoder(0.25, 50, 50);
+
+        //driveTicks(0.1, 1000, 1000);
+        turnDegrees(1, 360);
+        driveCm(1, 100, 100);
+        //driveEncoder(0.25, 50, 50);
         /*turnDegrees(0.25, 270);
         turnDegrees(0.25, -90);
         driveEncoder(0.25, 50, 50);
@@ -84,16 +87,21 @@ public class AutonomousFirst extends LinearOpMode {
      * @param leftCm  the distance in cm to move the left of the robot.
      * @param rightCm the distance in cm to move the right of the robot.
      */
-    void driveEncoder(double speed, double leftCm, double rightCm) {
+    void driveCm(double speed, double leftCm, double rightCm) {
+        driveTicks(speed, (int) (leftCm * COUNTS_PER_CM), (int) (rightCm * COUNTS_PER_CM));
+
+    }
+
+    void driveTicks(double speed, int leftTicks, int rightTicks) {
         int FLTarget;  //Target positions (in ticks)
         int FRTarget; //for the motors.
         int BLTarget;
         int BRTarget;
 
-        FLTarget = (int) (FL.getCurrentPosition() + (leftCm * COUNTS_PER_CM)); //maths
-        FRTarget = (int) (FR.getCurrentPosition() + (rightCm * COUNTS_PER_CM));
-        BLTarget = (int) (BL.getCurrentPosition() + (leftCm * COUNTS_PER_CM));
-        BRTarget = (int) (BR.getCurrentPosition() + (rightCm * COUNTS_PER_CM));
+        FLTarget = FL.getCurrentPosition() + leftTicks; //maths
+        FRTarget = FR.getCurrentPosition() + rightTicks;
+        BLTarget = BL.getCurrentPosition() + leftTicks;
+        BRTarget = BR.getCurrentPosition() + rightTicks;
 
         FL.setTargetPosition(FLTarget); //set the target positions mmmm
         FR.setTargetPosition(FRTarget);
@@ -113,8 +121,8 @@ public class AutonomousFirst extends LinearOpMode {
         //keep looping while opmode is active and the motors are working.
         //do the telemetry so i know what the hell is going on.
         while (opModeIsActive() && FL.isBusy() && FR.isBusy() && BL.isBusy() && BR.isBusy()) { //yell debug stuff. I should probably add more later for *debug purposes* owo
-            telemetry.addData("Path:", "%.3f cm :%.3f cm", leftCm, rightCm);
-            telemetry.update();
+            //telemetry.addData("Path:", "%.3f cm :%.3f cm", leftCm, rightCm);
+            //telemetry.update();
         }
 
         FL.setPower(0); //HALT!
@@ -126,7 +134,6 @@ public class AutonomousFirst extends LinearOpMode {
         FR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         BL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         BR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
     }
 
     /**
@@ -139,6 +146,6 @@ public class AutonomousFirst extends LinearOpMode {
         double radians = Math.toRadians(degrees);
         telemetry.addData("Radians: ", "%.3f", radians);
         double turnDistance = radians * ROBOT_WIDTH / 2;
-        driveEncoder(speed, -turnDistance, turnDistance);
+        driveCm(speed, -turnDistance, turnDistance);
     }
 }
