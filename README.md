@@ -7,9 +7,9 @@ If you aren't a contributor, ask me and I'll invite you.
 
 If you have any issues with the install process, ask me and I'll help as best I can.
 ## Git
-This project is best installed using git. Most non-windows (a.k.a. sane) users should have git preinstalled.
+This project is best installed using git. Most non-windows users should have git preinstalled.
 ### Windows
-If you use Windows (why?), and don't have git, visit the following website:
+If you use Windows and don't have git, visit the following website:
 https://git-scm.com/download/win
 
 ## Installation Process
