@@ -19,10 +19,14 @@ public class Utils {
         return result;
     }
 
-    public void moveToEncoderPosition(DcMotor motor, int position) {
+    public static void moveToEncoderPosition(DcMotor motor, int position, double speed) {
         motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motor.setTargetPosition(position);
-        motor.setPower(1);
+        motor.setPower(speed);
+    }
+    public static void resetMotor(DcMotor motor) {
+        motor.setPower(0);
+        motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
 }
