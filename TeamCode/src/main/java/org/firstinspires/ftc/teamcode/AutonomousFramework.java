@@ -18,15 +18,18 @@ public class AutonomousFramework extends LinearOpMode {
     //time
     private ElapsedTime runtime = new ElapsedTime();
     // Motor variables
-    private DcMotor FL = null;
-    private DcMotor FR = null;
-    private DcMotor BL = null;
-    private DcMotor BR = null;
+    DcMotor FL = null;
+    DcMotor FR = null;
+    DcMotor BL = null;
+    DcMotor BR = null;
     DcMotor armVertical = null;
     private double leftPower;
     private double rightPower;
     private double clawPosition;
-    private Servo claw = null;
+    Servo claw = null;
+    Servo foundationMoverL = null;
+    Servo foundationMoverR = null;
+    Servo capstoneDropper = null;
 
     static final double ROBOT_WIDTH = 41; //cm. From wheel to wheel. THIS VALUE IS NOT CORRECT TODO: get a more accurate #
     //private static final double WHEEL_DIAMETER = 10.16; //cm.

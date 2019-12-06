@@ -9,8 +9,8 @@ public class Test extends AutonomousFramework {
     public void runOpMode() throws InterruptedException {
         runSetup();
         Utils.moveToEncoderPosition(armVertical, armVertical.getCurrentPosition() + 1000, 1);
-        while(armVertical.isBusy() && opModeIsActive) {
-            telemetry.addData(armVertical.getCurrentPosition(), )
+        while (armVertical.isBusy()) {
+            //yeet
         }
 
     }

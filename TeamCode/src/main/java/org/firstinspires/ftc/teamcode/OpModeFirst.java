@@ -26,8 +26,11 @@ public class OpModeFirst extends OpMode {
     private double leftPower;
     private double rightPower;
     private double clawPosition;
-    private Servo claw = null;
 
+    boolean dropped;
+
+    private Servo claw = null;
+    private Servo capstoneDropper = null;
     @Override
     public void init() {
         //telemetry
@@ -39,6 +42,7 @@ public class OpModeFirst extends OpMode {
         BL = hardwareMap.get(DcMotor.class, "bl");
         BR = hardwareMap.get(DcMotor.class, "br");
         claw = hardwareMap.get(Servo.class, "claw");
+        capstoneDropper = hardwareMap.get(Servo.class, "cd");
 
         //accounting for how the motors are mounted
         FL.setDirection(DcMotor.Direction.REVERSE);
@@ -51,6 +55,7 @@ public class OpModeFirst extends OpMode {
     public void start(){
         runtime.reset();
         claw.setPosition((MAX_POS + MIN_POS) / 2);
+        dropped = true;
 
     }
 
@@ -60,6 +65,10 @@ public class OpModeFirst extends OpMode {
 
         setDrivePower();
         setClawPosition();
+
+        if (gamepad1.a) {
+            dropped = true;
+        }
 
         FL.setPower(leftPower);
         BL.setPower(leftPower);
