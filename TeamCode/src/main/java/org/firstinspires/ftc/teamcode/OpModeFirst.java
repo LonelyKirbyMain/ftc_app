@@ -19,6 +19,11 @@ public class OpModeFirst extends OpMode {
     private DcMotor FR = null;
     private DcMotor BL = null;
     private DcMotor BR = null;
+
+    //private Servo claw = null;
+    private Servo capstoneDropper = null;
+    private Servo foundationMoverA = null;
+    private Servo foundationMoverB = null;
     //------------------------------------------// claw variables:
     private static final double INCREMENT = 0.01;     // amount to slew servo each CYCLE_MS cycle
     private static final double MAX_POS = 1.0;     // Maximum rotational position
@@ -29,8 +34,7 @@ public class OpModeFirst extends OpMode {
 
     boolean dropped;
 
-    private Servo claw = null;
-    private Servo capstoneDropper = null;
+
     @Override
     public void init() {
         //telemetry
@@ -41,8 +45,10 @@ public class OpModeFirst extends OpMode {
         FR = hardwareMap.get(DcMotor.class, "fr");
         BL = hardwareMap.get(DcMotor.class, "bl");
         BR = hardwareMap.get(DcMotor.class, "br");
-        claw = hardwareMap.get(Servo.class, "claw");
+        //claw = hardwareMap.get(Servo.class, "claw");
         capstoneDropper = hardwareMap.get(Servo.class, "cd");
+        foundationMoverA = hardwareMap.get(Servo.class, "fa");
+        foundationMoverB = hardwareMap.get(Servo.class, "fb");
 
         //accounting for how the motors are mounted
         FL.setDirection(DcMotor.Direction.REVERSE);
@@ -50,11 +56,14 @@ public class OpModeFirst extends OpMode {
         FR.setDirection(DcMotor.Direction.FORWARD);
         BR.setDirection(DcMotor.Direction.FORWARD);
 
+        capstoneDropper.setPosition(0.5);
+        foundationMoverB.setPosition(0.25);
+        foundationMoverA.setPosition(0.5);
     }
     @Override
     public void start(){
         runtime.reset();
-        claw.setPosition((MAX_POS + MIN_POS) / 2);
+        //claw.setPosition((MAX_POS + MIN_POS) / 2);
         dropped = true;
 
     }
@@ -64,7 +73,7 @@ public class OpModeFirst extends OpMode {
         //these variables store power for left wheels and right wheels
 
         setDrivePower();
-        setClawPosition();
+        //setClawPosition();
 
         if (gamepad1.a) {
             dropped = true;
@@ -74,7 +83,7 @@ public class OpModeFirst extends OpMode {
         BL.setPower(leftPower);
         FR.setPower(rightPower);
         BR.setPower(rightPower);
-        claw.setPosition(clawPosition);
+        //claw.setPosition(clawPosition);
 
         telemetry.addData("Status", "Run Time: " + runtime.toString());
         telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
@@ -86,8 +95,8 @@ public class OpModeFirst extends OpMode {
         if (Utils.getBatteryVoltage(hardwareMap) < 12.0d) {
             telemetry.addLine("Warning! Battery voltage is low");
         }
-        telemetry.addData("Battery", "Voltage: %.2f", getBatteryVoltage(hardwareMap));
 
+        telemetry.addData("Battery", "Voltage: %.2f", getBatteryVoltage(hardwareMap));
 
         //stores gamepad sticks in variables
         double drive = -gamepad1.left_stick_y;
@@ -104,17 +113,32 @@ public class OpModeFirst extends OpMode {
             rightPower *= 0.1;
         }
 
+        if (gamepad1.a) changeServoPosition(capstoneDropper, 0.01);
+        else if (gamepad1.b) changeServoPosition(capstoneDropper, -0.01);
 
+        if (gamepad1.x) {
+            changeServoPosition(foundationMoverA, 0.01);
+            changeServoPosition(foundationMoverB, 0.01);
+        } else if (gamepad1.y) {
+            changeServoPosition(foundationMoverA, -0.01);
+            changeServoPosition(foundationMoverB, -0.01);
+        }
+        telemetry.addData("capstoneDropper:", capstoneDropper.getPosition());
+        telemetry.addData("foundationMoverA:", foundationMoverA.getPosition());
+        telemetry.addData("foundationMoverB:", foundationMoverB.getPosition());
     }
 
-    private void setClawPosition() {
-        double position = claw.getPosition();
+    /*private void setClawPosition() {
+        double position = 0; //claw.getPosition();
         double increment = ((-gamepad2.right_stick_y + 1) / 2) * INCREMENT;
         position = Math.min(Math.max(position + increment, MIN_POS), MAX_POS);
-        telemetry.addData("Servo", "position: %.2f", position);
+        //telemetry.addData("Servo", "position: %.2f", position);
         clawPosition = position;
 
-    }
+    }*/
 
+    void changeServoPosition(Servo servo, double increment) {
+        servo.setPosition(servo.getPosition() + increment);
+    }
 
 }
