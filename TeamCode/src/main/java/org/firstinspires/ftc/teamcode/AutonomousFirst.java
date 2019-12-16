@@ -137,7 +137,7 @@ public class AutonomousFirst extends LinearOpMode {
     }
 
     /**
-     * Executes a point turn for given number of degrees.
+     * Executes a point turn for given number of degrees clockwise.
      *
      * @param speed   the speed to turn at, between 0 and 1 please.
      * @param degrees how far to turn, from -360 to 360. Turns right if positive, left if negative.
@@ -146,6 +146,6 @@ public class AutonomousFirst extends LinearOpMode {
         double radians = Math.toRadians(degrees);
         telemetry.addData("Radians: ", "%.3f", radians);
         double turnDistance = radians * ROBOT_WIDTH / 2;
-        driveCm(speed, -turnDistance, turnDistance);
+        driveCm(speed, turnDistance, -turnDistance);
     }
 }

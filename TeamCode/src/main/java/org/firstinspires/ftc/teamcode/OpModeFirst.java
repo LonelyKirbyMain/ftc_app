@@ -23,6 +23,10 @@ public class OpModeFirst extends OpMode {
     private static final double INCREMENT = 0.01;     // amount to slew servo each CYCLE_MS cycle
     private static final double MAX_POS = 1.0;     // Maximum rotational position
     private static final double MIN_POS = 0.5;     // Minimum rotational position
+    //------------------------------------------// foundation variables:
+
+
+
     private double leftPower;
     private double rightPower;
     private double clawPosition;

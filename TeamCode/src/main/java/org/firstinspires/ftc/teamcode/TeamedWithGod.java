@@ -7,7 +7,6 @@ public class TeamedWithGod extends AutonomousFirst {
     @Override
     public void runOpMode() throws InterruptedException {
         runSetup();
-        sleep(25000);
         driveCm(1,88,88);
 
     }
