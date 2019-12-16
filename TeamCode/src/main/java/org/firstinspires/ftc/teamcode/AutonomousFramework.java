@@ -1,13 +1,15 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name = "AutonomousFirst", group = "Autonomous")
-public class AutonomousFirst extends LinearOpMode {
+@Disabled
+@Autonomous(name = "AutonomousFramework", group = "Autonomous")
+public class AutonomousFramework extends LinearOpMode {
     //------------------------------------------// claw variables:
     static final double INCREMENT = 0.01;     // amount to slew servo each CYCLE_MS cycle
     static final int CYCLE_MS = 50;     // period of each cycle
@@ -16,18 +18,23 @@ public class AutonomousFirst extends LinearOpMode {
     //time
     private ElapsedTime runtime = new ElapsedTime();
     // Motor variables
-    private DcMotor FL = null;
-    private DcMotor FR = null;
-    private DcMotor BL = null;
-    private DcMotor BR = null;
+    DcMotor FL = null;
+    DcMotor FR = null;
+    DcMotor BL = null;
+    DcMotor BR = null;
+    DcMotor armVertical = null;
     private double leftPower;
     private double rightPower;
     private double clawPosition;
-    private Servo claw = null;
+    Servo claw = null;
+    Servo foundationMoverL = null;
+    Servo foundationMoverR = null;
+    Servo capstoneDropper = null;
 
-    private static final double ROBOT_WIDTH = 41; //cm. From wheel to wheel. THIS VALUE IS NOT CORRECT TODO: get a more accurate #
+    static final double ROBOT_WIDTH = 41; //cm. From wheel to wheel. THIS VALUE IS NOT CORRECT TODO: get a more accurate #
     //private static final double WHEEL_DIAMETER = 10.16; //cm.
-    private static final double COUNTS_PER_CM = 1000 / 28.25; //cm.
+    static final double COUNTS_PER_CM = 1000 / 28.25; //cm.
+    static final double ARM_VERTICAL_COUNTS_PER_CM = 0; //TODO: test
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -35,14 +42,6 @@ public class AutonomousFirst extends LinearOpMode {
 
         //begin of actual code
 
-        //driveTicks(0.1, 1000, 1000);
-        turnDegrees(1, 360);
-        driveCm(1, 100, 100);
-        //driveEncoder(0.25, 50, 50);
-        /*turnDegrees(0.25, 270);
-        turnDegrees(0.25, -90);
-        driveEncoder(0.25, 50, 50);
-        turnDegrees(1, 180);*/
     }
 
     /**
@@ -54,12 +53,14 @@ public class AutonomousFirst extends LinearOpMode {
         FR = hardwareMap.get(DcMotor.class, "fr");
         BL = hardwareMap.get(DcMotor.class, "bl");
         BR = hardwareMap.get(DcMotor.class, "br");
+        armVertical = hardwareMap.get(DcMotor.class, "av");
 
         //accounting for how the motors are mounted
         FL.setDirection(DcMotor.Direction.REVERSE);
         BL.setDirection(DcMotor.Direction.REVERSE);
         FR.setDirection(DcMotor.Direction.FORWARD);
         BR.setDirection(DcMotor.Direction.FORWARD);
+        armVertical.setDirection(DcMotor.Direction.FORWARD);
         runtime.reset();
 
         waitForStart();
