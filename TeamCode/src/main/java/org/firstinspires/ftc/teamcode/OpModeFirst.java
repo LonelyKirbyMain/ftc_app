@@ -62,6 +62,7 @@ public class OpModeFirst extends OpMode {
 
         capstoneDropper.setPosition(0.5);
         foundationMoverB.setPosition(0.25);
+
         foundationMoverA.setPosition(0.5);
     }
     @Override

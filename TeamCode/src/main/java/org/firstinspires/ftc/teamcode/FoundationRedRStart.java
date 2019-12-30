@@ -2,8 +2,8 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-@Autonomous(name = ":FoundationMoveRightStart", group = "Autonomous")
-public class FoundationMoveRightStart extends AutonomousFramework {
+@Autonomous(name = ":FoundationRedRStart", group = "Autonomous")
+public class FoundationRedRStart extends AutonomousFramework {
     @Override
     public void runOpMode() throws InterruptedException {
         runSetup();
