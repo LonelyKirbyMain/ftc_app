@@ -22,19 +22,19 @@ public class AutonomousFramework extends LinearOpMode {
     DcMotor FR = null;
     DcMotor BL = null;
     DcMotor BR = null;
-    DcMotor armVertical = null;
+    //DcMotor armVertical = null;
     private double leftPower;
     private double rightPower;
     private double clawPosition;
     Servo claw = null;
-    Servo foundationMoverL = null;
-    Servo foundationMoverR = null;
+    Servo foundationMoverA = null;
+    Servo foundationMoverB = null;
     Servo capstoneDropper = null;
 
     static final double ROBOT_WIDTH = 41; //cm. From wheel to wheel. THIS VALUE IS NOT CORRECT TODO: get a more accurate #
     //private static final double WHEEL_DIAMETER = 10.16; //cm.
     static final double COUNTS_PER_CM = 1000 / 28.25; //cm.
-    static final double ARM_VERTICAL_COUNTS_PER_CM = 0; //TODO: test
+    //]static final double ARM_VERTICAL_COUNTS_PER_CM = 0; //TODO: test
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -53,14 +53,22 @@ public class AutonomousFramework extends LinearOpMode {
         FR = hardwareMap.get(DcMotor.class, "fr");
         BL = hardwareMap.get(DcMotor.class, "bl");
         BR = hardwareMap.get(DcMotor.class, "br");
-        armVertical = hardwareMap.get(DcMotor.class, "av");
+        //armVertical = hardwareMap.get(DcMotor.class, "av");
+        capstoneDropper = hardwareMap.get(Servo.class, "cd");
+        foundationMoverA = hardwareMap.get(Servo.class, "fa");
+        foundationMoverB = hardwareMap.get(Servo.class, "fb");
 
         //accounting for how the motors are mounted
         FL.setDirection(DcMotor.Direction.REVERSE);
         BL.setDirection(DcMotor.Direction.REVERSE);
         FR.setDirection(DcMotor.Direction.FORWARD);
         BR.setDirection(DcMotor.Direction.FORWARD);
-        armVertical.setDirection(DcMotor.Direction.FORWARD);
+        //armVertical.setDirection(DcMotor.Direction.FORWARD);
+
+        capstoneDropper.setPosition(0.9);//temporarily changed by Ethan for testing purposes
+        foundationMoverB.setPosition(0);//temporarily changed
+        foundationMoverA.setPosition(0);//also changed
+
         runtime.reset();
 
         waitForStart();
@@ -70,6 +78,18 @@ public class AutonomousFramework extends LinearOpMode {
     void setClawPosition() {
 
     }
+
+    //Copied this over from OpModeFirst for Servo Coding   -Ethan
+    void changeServoPosition(Servo servo, double increment) {
+        servo.setPosition(servo.getPosition() + increment);
+    }
+
+    //A function that can move the foundation mover for autonomous    -Ethan
+    void moveFoundationMover (double position) {
+        foundationMoverB.setPosition(position);
+        foundationMoverA.setPosition(position);
+    }
+
 
     //felt cute, might delete later, idk
     void DriveForSeconds(double seconds, double rPower, double lPower) {
@@ -99,11 +119,17 @@ public class AutonomousFramework extends LinearOpMode {
         int BLTarget;
         int BRTarget;
 
-        FLTarget = FL.getCurrentPosition() + leftTicks; //maths
-        FRTarget = FR.getCurrentPosition() + rightTicks;
-        BLTarget = BL.getCurrentPosition() + leftTicks;
-        BRTarget = BR.getCurrentPosition() + rightTicks;
-
+        if (speed < 0) {
+            FLTarget = FL.getCurrentPosition() - leftTicks; //maths
+            FRTarget = FR.getCurrentPosition() - rightTicks;
+            BLTarget = BL.getCurrentPosition() - leftTicks;
+            BRTarget = BR.getCurrentPosition() - rightTicks;
+        } else {
+            FLTarget = FL.getCurrentPosition() + leftTicks; //maths
+            FRTarget = FR.getCurrentPosition() + rightTicks;
+            BLTarget = BL.getCurrentPosition() + leftTicks;
+            BRTarget = BR.getCurrentPosition() + rightTicks;
+        }
         FL.setTargetPosition(FLTarget); //set the target positions mmmm
         FR.setTargetPosition(FRTarget);
         BL.setTargetPosition(BLTarget);
@@ -114,10 +140,11 @@ public class AutonomousFramework extends LinearOpMode {
         BL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         BR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        FL.setPower(Math.abs(speed)); //go fast (or slow, i guess. you do you)
-        FR.setPower(Math.abs(speed));
-        BL.setPower(Math.abs(speed));
-        BR.setPower(Math.abs(speed));
+        //removed the absolute value function to allow backwards motion
+        FL.setPower(speed); //go fast (or slow, i guess. you do you)
+        FR.setPower(speed);
+        BL.setPower(speed);
+        BR.setPower(speed);
 
         //keep looping while opmode is active and the motors are working.
         //do the telemetry so i know what the hell is going on.

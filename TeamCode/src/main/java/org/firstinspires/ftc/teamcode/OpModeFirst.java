@@ -20,7 +20,7 @@ public class OpModeFirst extends OpMode {
     private DcMotor BL = null;
     private DcMotor BR = null;
 
-    private Servo claw = null; //temporary uncomment for testing
+    //private Servo claw = null; //temporary uncomment for testing
     private Servo capstoneDropper = null;
     private Servo foundationMoverA = null;
     private Servo foundationMoverB = null;
@@ -34,7 +34,7 @@ public class OpModeFirst extends OpMode {
 
     private double leftPower;
     private double rightPower;
-    private double clawPosition; //temporary uncomment for testing
+    //private double clawPosition; //temporary uncomment for testing
 
     boolean dropped;
 
@@ -49,7 +49,7 @@ public class OpModeFirst extends OpMode {
         FR = hardwareMap.get(DcMotor.class, "fr");
         BL = hardwareMap.get(DcMotor.class, "bl");
         BR = hardwareMap.get(DcMotor.class, "br");
-        claw = hardwareMap.get(Servo.class, "claw"); //temporary uncomment for testing
+        //claw = hardwareMap.get(Servo.class, "claw"); //temporary uncomment for testing
         capstoneDropper = hardwareMap.get(Servo.class, "cd");
         foundationMoverA = hardwareMap.get(Servo.class, "fa");
         foundationMoverB = hardwareMap.get(Servo.class, "fb");
@@ -60,10 +60,10 @@ public class OpModeFirst extends OpMode {
         FR.setDirection(DcMotor.Direction.FORWARD);
         BR.setDirection(DcMotor.Direction.FORWARD);
 
-        capstoneDropper.setPosition(1.00);//temporarily changed by Ethan for testing purposes
-        foundationMoverB.setPosition(0.5);//temporarily changed
+        capstoneDropper.setPosition(0.9);//temporarily changed by Ethan for testing purposes
+        foundationMoverB.setPosition(0);//temporarily changed
 
-        foundationMoverA.setPosition(0.5);//also changed
+        foundationMoverA.setPosition(0);//also changed
 
     }
     @Override
@@ -119,11 +119,11 @@ public class OpModeFirst extends OpMode {
             rightPower *= 0.1;
         }
 
-        if (gamepad1.a) changeServoPosition(capstoneDropper, 0.01);
-        else if (gamepad1.b) changeServoPosition(capstoneDropper, -0.01);
+        if (gamepad1.a) changeServoPosition(capstoneDropper, 0.01);//Moves Capstone dropper
+        else if (gamepad1.b) changeServoPosition(capstoneDropper, -0.01);//Moves capstone dropper
 
-        if (gamepad1.dpad_up)changeServoPosition(claw,0.01);
-        else if (gamepad1.dpad_down)changeServoPosition(claw, -0.01);
+        //if (gamepad1.dpad_up)changeServoPosition(claw,0.01);
+        //else if (gamepad1.dpad_down)changeServoPosition(claw, -0.01);
 
         if (gamepad1.x) {
             changeServoPosition(foundationMoverA, 0.01);
@@ -135,7 +135,7 @@ public class OpModeFirst extends OpMode {
         telemetry.addData("capstoneDropper:", capstoneDropper.getPosition());
         telemetry.addData("foundationMoverA:", foundationMoverA.getPosition());
         telemetry.addData("foundationMoverB:", foundationMoverB.getPosition());
-        telemetry.addData("claw", claw.getPosition());
+        //telemetry.addData("claw", claw.getPosition());
     }
 
     /*private void setClawPosition() {
