@@ -70,7 +70,7 @@ public class OpModeFirst extends OpMode {
     public void start(){
         runtime.reset();
         //claw.setPosition((MAX_POS + MIN_POS) / 2);
-        dropped = true;
+        dropped = false;
 
     }
 
@@ -81,9 +81,9 @@ public class OpModeFirst extends OpMode {
         setDrivePower();
         //setClawPosition();
 
-        if (gamepad1.a) {
-            dropped = true;
-        }
+        //if (gamepad1.a) {
+        //    dropped = true;
+        //}
 
         FL.setPower(leftPower);
         BL.setPower(leftPower);
@@ -147,6 +147,12 @@ public class OpModeFirst extends OpMode {
 
     }*/
 
+    /**
+     * changes servo position by a given increment
+     *
+     * @param servo     the servo to move
+     * @param increment the increment
+     */
     void changeServoPosition(Servo servo, double increment) {
         servo.setPosition(servo.getPosition() + increment);
     }
