@@ -10,31 +10,32 @@ public class FoundationBlueLStart extends AutonomousFramework {
         driveCm(1,10,10);
         turnDegrees(-1,45);
         driveCm(1,50,50);
-        turnDegrees(1, 135);
-        driveCm(-0.5,20,20);
+        turnDegrees(-1, 135);
+        driveCm(-0.5,30,30);
         moveFoundationMover(0.8);
         sleep(800);
-        driveCm(1,40,40);
+        driveCm(1,50,50);
         moveFoundationMover(0);
         sleep(800);
         driveCm(1,10,10);
-        turnDegrees(1,95);
+        turnDegrees(-1,95);
         driveCm(1,70,70);
-        turnDegrees(1,90);
-        driveCm(1,120,120);
-        turnDegrees(1,90);
-        driveCm(1, 70,70);
         turnDegrees(-1,90);
+        driveCm(1,120,120);
+        turnDegrees(-1,90);
+        driveCm(1, 70,70);
+        turnDegrees(1,90);
         driveCm(-0.5,20,20);
         moveFoundationMover(0.8);
         driveCm(-1,40,40);
         moveFoundationMover(0);
-        driveCm(1,10,10);
-        turnDegrees(-1,90);
-        driveCm(1,70,70);
-        turnDegrees(-1,90);
-        driveCm(1,75,75);
+
+        driveCm(1,20,20);
         turnDegrees(1,90);
+        driveCm(1,70,70);
+        turnDegrees(1,90);
+        driveCm(1,90,90);
+        turnDegrees(-1,90);
         driveCm(1,50,50);
     }
     /*Left Start, Facing away from wall, Turns a bit to the left, moves forward

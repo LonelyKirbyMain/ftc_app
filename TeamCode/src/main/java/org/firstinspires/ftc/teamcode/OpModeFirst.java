@@ -20,15 +20,11 @@ public class OpModeFirst extends OpMode {
     private DcMotor BL = null;
     private DcMotor BR = null;
 
-    //private Servo claw = null; //temporary uncomment for testing
+    private Servo claw = null; //temporary uncomment for testing
     private Servo capstoneDropper = null;
     private Servo foundationMoverA = null;
     private Servo foundationMoverB = null;
-    //------------------------------------------// claw variables:
-    private static final double INCREMENT = 0.01;     // amount to slew servo each CYCLE_MS cycle
-    private static final double MAX_POS = 1.0;     // Maximum rotational position
-    private static final double MIN_POS = 0.5;     // Minimum rotational position
-    //------------------------------------------// foundation variables:
+
 
 
 
@@ -49,7 +45,7 @@ public class OpModeFirst extends OpMode {
         FR = hardwareMap.get(DcMotor.class, "fr");
         BL = hardwareMap.get(DcMotor.class, "bl");
         BR = hardwareMap.get(DcMotor.class, "br");
-        //claw = hardwareMap.get(Servo.class, "claw"); //temporary uncomment for testing
+        claw = hardwareMap.get(Servo.class, "claw"); //temporary uncomment for testing
         capstoneDropper = hardwareMap.get(Servo.class, "cd");
         foundationMoverA = hardwareMap.get(Servo.class, "fa");
         foundationMoverB = hardwareMap.get(Servo.class, "fb");
@@ -62,7 +58,7 @@ public class OpModeFirst extends OpMode {
 
         capstoneDropper.setPosition(0.9);//temporarily changed by Ethan for testing purposes
         foundationMoverB.setPosition(0);//temporarily changed
-
+        claw.setPosition(0);
         foundationMoverA.setPosition(0);//also changed
 
     }
@@ -122,8 +118,8 @@ public class OpModeFirst extends OpMode {
         if (gamepad1.a) changeServoPosition(capstoneDropper, 0.01);//Moves Capstone dropper
         else if (gamepad1.b) changeServoPosition(capstoneDropper, -0.01);//Moves capstone dropper
 
-        //if (gamepad1.dpad_up)changeServoPosition(claw,0.01);
-        //else if (gamepad1.dpad_down)changeServoPosition(claw, -0.01);
+        //if (gamepad2.dpad_up)changeServoPosition(claw,0.01);
+        //else if (gamepad2.dpad_down)changeServoPosition(claw, -0.01);
 
         if (gamepad1.x) {
             changeServoPosition(foundationMoverA, 0.01);
@@ -135,7 +131,7 @@ public class OpModeFirst extends OpMode {
         telemetry.addData("capstoneDropper:", capstoneDropper.getPosition());
         telemetry.addData("foundationMoverA:", foundationMoverA.getPosition());
         telemetry.addData("foundationMoverB:", foundationMoverB.getPosition());
-        //telemetry.addData("claw", claw.getPosition());
+        telemetry.addData("claw", claw.getPosition());
     }
 
     /*private void setClawPosition() {
