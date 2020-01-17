@@ -23,7 +23,7 @@ public class OpModeFirst extends OpMode {
     private static final double INCREMENT = 0.02;     // amount to slew servo each CYCLE_MS cycle
     double armHorizontalPower;
 
-    private Servo claw = null; //temporary uncomment for testing
+    private Servo claw = null;
     private Servo capstoneDropper = null;
     private Servo foundationMoverA = null;
     private Servo foundationMoverB = null;
@@ -36,7 +36,6 @@ public class OpModeFirst extends OpMode {
     private double leftPower;
     private double rightPower;
     private DcMotor armHorizontal = null;
-    private Servo claw = null;
     private double clawPosition;
   
     boolean dropped;
