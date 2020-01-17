@@ -25,7 +25,7 @@ Please create your own branch with:
 git checkout -b [branch_name (i.e. "tom")]
 git push origin [branch_name]
 ```
-This way you have a safe place to make changes and put them on the github without fucking everything up.
+This way you have a safe place to make changes and put them on the github without causing problems.
 
 # Coding
 All code you will be writing is in `Teamcode/src/main/java/org.firstinspires.teamcode.` Feel free to take a look at our code, the javadocs, and the examples located in `FtcRobotController/java/org.firstinspires.ftc.robotcontroller/external.samples`. If you're still stuck, ask me (Tom) or any of the other coders.
