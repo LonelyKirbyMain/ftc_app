@@ -10,11 +10,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 @Disabled
 @Autonomous(name = "AutonomousFramework", group = "Autonomous")
 public class AutonomousFramework extends LinearOpMode {
-    //------------------------------------------// claw variables:
-    static final double INCREMENT = 0.01;     // amount to slew servo each CYCLE_MS cycle
-    static final int CYCLE_MS = 50;     // period of each cycle
-    static final double MAX_POS = 1.0;     // Maximum rotational position
-    static final double MIN_POS = 0.0;     // Minimum rotational position
+
     //time
     private ElapsedTime runtime = new ElapsedTime();
     // Motor variables
@@ -22,9 +18,6 @@ public class AutonomousFramework extends LinearOpMode {
     DcMotor FR = null;
     DcMotor BL = null;
     DcMotor BR = null;
-    //DcMotor armVertical = null;
-    private double leftPower;
-    private double rightPower;
     private double clawPosition;
     Servo claw = null;
     Servo foundationMoverA = null;
@@ -75,10 +68,6 @@ public class AutonomousFramework extends LinearOpMode {
     }
 
 
-    void setClawPosition() {
-
-    }
-
     //Copied this over from OpModeFirst for Servo Coding   -Ethan
     void changeServoPosition(Servo servo, double increment) {
         servo.setPosition(servo.getPosition() + increment);
@@ -98,8 +87,7 @@ public class AutonomousFramework extends LinearOpMode {
     void DriveForSeconds(double seconds, double rPower, double lPower) {
         double targetTime = runtime.time() + seconds;
         while (runtime.time() < targetTime && opModeIsActive()) {
-            leftPower = lPower;
-            rightPower = rPower;
+            //DcMotor armVertical = null;
         }
     }
 

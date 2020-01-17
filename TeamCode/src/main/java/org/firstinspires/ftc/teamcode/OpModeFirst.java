@@ -21,14 +21,14 @@ public class OpModeFirst extends OpMode {
     private DcMotor BR = null;
     //------------------------------------------// claw variables:
     private static final double INCREMENT = 0.02;     // amount to slew servo each CYCLE_MS cycle
-    double armHorizontalPower;
+    private double armHorizontalPower;
 
     private Servo claw = null;
     private Servo capstoneDropper = null;
     private Servo foundationMoverA = null;
     private Servo foundationMoverB = null;
 
-    double armVerticalPower;
+    private double armVerticalPower;
     private DcMotor armVertical = null;
     private static final double MAX_POS = 1.0;     // Maximum rotational position
     private static final double MIN_POS = 0.5;     // Minimum rotational position
@@ -36,9 +36,6 @@ public class OpModeFirst extends OpMode {
     private double leftPower;
     private double rightPower;
     private DcMotor armHorizontal = null;
-    private double clawPosition;
-  
-    boolean dropped;
 
     @Override
     public void init() {
@@ -174,7 +171,7 @@ public class OpModeFirst extends OpMode {
      *
      * @see #changeServoPosition(Servo, double, double, double)
      */
-    void changeServoPosition(Servo servo, double increment) {
+    private void changeServoPosition(Servo servo, double increment) {
         servo.setPosition(servo.getPosition() + increment);
     }
     /**
