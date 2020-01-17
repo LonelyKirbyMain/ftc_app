@@ -89,6 +89,9 @@ public class AutonomousFramework extends LinearOpMode {
         foundationMoverB.setPosition(position);
         foundationMoverA.setPosition(position);
     }
+    void moveClaw(double position) {
+        claw.setPosition(position);
+    }
 
 
     //felt cute, might delete later, idk
